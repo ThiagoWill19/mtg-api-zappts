@@ -23,6 +23,9 @@ public class CardListService {
 	private CardListRepository repository;
 	
 	@Autowired
+	private CardService cardService;
+	
+	@Autowired
 	private CardRepository cardRepository;
 	
 	@Autowired
@@ -66,6 +69,21 @@ public class CardListService {
 		return lists;
 
 	}
+	
+	public List<ListDto> getAll(String order) {
+
+		List<ListDto> lists = new ArrayList<>();
+
+		List<CardList> cardLists = repository.findAll();
+
+		for (CardList c : cardLists) {
+
+			lists.add(ListDto.ToDto(c));
+		}
+		
+		return lists;
+
+	}
 
 	public ListDto findById(int id) throws Exception {
 
@@ -96,8 +114,11 @@ public class CardListService {
 			
 			if(cardList.getUserOwner().getId() == userId) {
 				
+				//card.getCardLists().add(cardList);
+				cardService.save(card); // fazer validação
 				cardList.getCards().add(card);
 				repository.save(cardList);
+				
 				
 				return ListDto.ToDto(cardList);
 				
@@ -119,6 +140,8 @@ public class CardListService {
 					
 					if(cardRepository.findById(cardId).get().getCardLists().contains(cardList)) {
 						
+						cardList.getCards().remove(cardRepository.findById(cardId).get());
+						repository.save(cardList);
 						cardRepository.deleteById(cardId);
 						return true;
 						
@@ -131,19 +154,19 @@ public class CardListService {
 		}else throw new Exception("List not found!");
 	}
 	
-	public boolean updateCard(int listId, int userId, int cardId, CardUpdateDto cardUpdateDto) throws Exception{
+	public boolean updateCard(CardUpdateDto cardUpdateDto) throws Exception{
 		
-		if(repository.existsById(listId)) {
+		if(repository.existsById(cardUpdateDto.getListId())) {
 			
-			CardList cardList = repository.getById(listId);
+			CardList cardList = repository.getById(cardUpdateDto.getListId());
 			
-			if(cardList.getUserOwner().getId() == userId) {
+			if(cardList.getUserOwner().getId() == cardUpdateDto.getUserId()) {
 				
-				if(cardRepository.existsById(cardId)) {
+				if(cardRepository.existsById(cardUpdateDto.getCardId())) {
 					
-					if(cardRepository.findById(cardId).get().getCardLists().contains(cardList)) {
+					if(cardRepository.findById(cardUpdateDto.getCardId()).get().getCardLists().contains(cardList)) {
 						
-						Card card = cardRepository.findById(cardId).get();
+						Card card = cardRepository.findById(cardUpdateDto.getCardId()).get();
 						
 						if(cardUpdateDto.getNewPrice() != 0) {
 							card.setPrice(cardUpdateDto.getNewPrice());

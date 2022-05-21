@@ -1,13 +1,20 @@
 package com.mtg.api.dto;
 
+
+
+import javax.validation.constraints.NotNull;
+
 import com.mtg.api.models.Card;
 
 public class NewCardDto {
 
-	private int listId;
+	@NotNull(message = "Insert listId")
+	private Integer listId;
 	
-	private int userId;
+	@NotNull(message = "Insert userID")
+	private Integer userId;
 	
+	@NotNull(message = "Card cannot be null")
 	private Card card;
 	
 	
@@ -16,22 +23,22 @@ public class NewCardDto {
 	}
 
 
-	public int getListId() {
+	public Integer getListId() {
 		return listId;
 	}
 
 
-	public void setListId(int listId) {
+	public void setListId(Integer listId) {
 		this.listId = listId;
 	}
 
 
-	public int getUserId() {
+	public Integer getUserId() {
 		return userId;
 	}
 
 
-	public void setUserId(int userId) {
+	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
 

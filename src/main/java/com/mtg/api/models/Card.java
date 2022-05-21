@@ -46,7 +46,7 @@ public class Card implements Comparable<Card> {
 	
 	@Column(nullable = false)
 	private int quantity;
-
+	
 	@ManyToMany(mappedBy = "cards")
 	private List<CardList> cardLists = new ArrayList<>();
 

@@ -6,8 +6,44 @@ public class CardUpdateDto {
 	
 	private int newQuantity;
 	
+	private int listId, userId, cardId;
 	
-	
+	public int getListId() {
+		return listId;
+	}
+
+
+
+	public void setListId(int listId) {
+		this.listId = listId;
+	}
+
+
+
+	public int getUserId() {
+		return userId;
+	}
+
+
+
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+
+
+
+	public int getCardId() {
+		return cardId;
+	}
+
+
+
+	public void setCardId(int cardId) {
+		this.cardId = cardId;
+	}
+
+
+
 	public CardUpdateDto() {
 		
 	}

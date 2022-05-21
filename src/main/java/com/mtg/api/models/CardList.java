@@ -1,5 +1,6 @@
 package com.mtg.api.models;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -40,8 +41,8 @@ public class CardList {
 	@JoinTable(name = "lists_cards",
 			joinColumns = {@JoinColumn(name = "list_id")},
 			inverseJoinColumns = {@JoinColumn(name = "card_id")})
-	@JsonIgnoreProperties({"cardList"})
-	private Set<Card> cards;
+	@JsonIgnoreProperties({"cardLists"})
+	private Set<Card> cards = new HashSet<>();
 
 	@ManyToOne
 	@JoinColumn(name = "user_id")

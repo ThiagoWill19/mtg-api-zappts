@@ -2,6 +2,7 @@ package com.mtg.api.dto;
 
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.mtg.api.models.Card;
 import com.mtg.api.models.CardList;
 
@@ -13,6 +14,7 @@ public class ListDto {
 	
 	private String userName;
 	
+	@JsonIgnoreProperties({"cardLists"})
 	private Set<Card> cards;
 	
 	
