@@ -11,6 +11,7 @@ public class UserDto {
 	public UserDto() {
 		
 	}
+	
 
 	public List<ListDto> getList() {
 		return list;
